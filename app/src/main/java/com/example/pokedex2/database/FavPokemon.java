@@ -6,7 +6,8 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class FavPokemon {
-    @PrimaryKey @NonNull
+    @PrimaryKey
+    @NonNull
     private String name;
     private int id;
     private String type;

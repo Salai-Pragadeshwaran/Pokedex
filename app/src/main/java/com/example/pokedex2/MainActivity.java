@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     public static FragmentManager fragmentManager;
     public static PokedexDatabase pokedexDatabase;
+    public static int noOfPDActivity = 0;
     final int RC_SIGN_IN = 1;
     final String ANONYMOUS = "Anonymous";
     private FirebaseAuth mFirebaseAuth;

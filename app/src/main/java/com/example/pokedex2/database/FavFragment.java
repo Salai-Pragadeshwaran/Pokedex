@@ -48,7 +48,7 @@ public class FavFragment extends Fragment {
         List<FavPokemon> favPokemons;
         favPokemons = MainActivity.pokedexDatabase.pokeDao().getFavPokemon();
         pokemons = new ArrayList<>();
-        for(int i=0; i<favPokemons.size();i++){
+        for (int i = 0; i < favPokemons.size(); i++) {
             pokemons.add(new Pokemon(favPokemons.get(i).getName(), favPokemons.get(i).getImageUrl()));
         }
         pokemonAdapter = new PokemonAdapter(pokemons, getContext());
@@ -61,10 +61,6 @@ public class FavFragment extends Fragment {
         pokeList.setAdapter(pokemonAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         pokeList.setLayoutManager(linearLayoutManager);
-
-
-        // Get a reference to the ConnectivityManager to check state of network connectivity
-
 
 
         TextView previous = (TextView) root.findViewById(R.id.prevPage);

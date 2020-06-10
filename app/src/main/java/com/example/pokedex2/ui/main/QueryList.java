@@ -2,10 +2,6 @@ package com.example.pokedex2.ui.main;
 
 import android.util.Log;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,22 +10,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public final class QueryList {
 
-    /** Tag for the log messages */
+
     public static final String LOG_TAG = QueryList.class.getSimpleName();
-
-    /** Sample JSON response for a USGS query */
-
-    /**
-     * Create a private constructor because no one should ever create a {@link QueryList} object.
-     * This class is only meant to hold static variables and methods, which can be accessed
-     * directly from the class name QueryUtils (and an object instance of QueryUtils is not needed).
-     */
 
 
     public static String fetchData(String requestUrl) {
@@ -43,10 +29,6 @@ public final class QueryList {
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error closing input stream", e);
         }
-
-        // Extract relevant fields from the JSON response and create an {@link Event} object
-
-        // Return the {@link Event}
         return jsonResponse;
     }
 
@@ -114,8 +96,6 @@ public final class QueryList {
         }
         return output.toString();
     }
-
-
 
 
 }

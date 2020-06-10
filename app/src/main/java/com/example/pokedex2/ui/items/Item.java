@@ -1,8 +1,8 @@
 package com.example.pokedex2.ui.items;
 
 public class Item {
-    private String name ;
-    private String imgUrl ;
+    private String name;
+    private String imgUrl;
 
     public Item(String name, String imgUrl) {
         this.name = name;

@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
-public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHolder>{
+public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.ViewHolder> {
 
     private ArrayList<Pokemon> pokemons = new ArrayList<>();
     private Context mcontext;

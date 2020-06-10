@@ -68,13 +68,12 @@ public class PokemonDetailActivity extends AppCompatActivity implements LoaderMa
     View loadingIndicator;
     List<FavPokemon> favPokemons;
     MenuItem favItem;
-    Menu optionsMenu;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pokemon_details);
-
+        MainActivity.noOfPDActivity++;
         Fade fade = new Fade();
         View decor = getWindow().getDecorView();
         fade.excludeTarget(decor.findViewById(R.id.action_bar_container), true);
@@ -123,9 +122,9 @@ public class PokemonDetailActivity extends AppCompatActivity implements LoaderMa
             loaderManager.initLoader(0, null, this);
         } else {
             loadingIndicator.setVisibility(View.GONE);
-            for(int i=0; i<favPokemons.size();i++){
+            for (int i = 0; i < favPokemons.size(); i++) {
                 String databaseName = favPokemons.get(i).getName();
-                if(databaseName.equals(PokemonName.toString())){
+                if (databaseName.equals(PokemonName.toString())) {
                     loadingIndicator.setVisibility(View.GONE);
                     pokename.setText(favPokemons.get(i).getName().toUpperCase());
                     pokeWeight.setText(String.valueOf(favPokemons.get(i).getWeight()));
@@ -145,12 +144,12 @@ public class PokemonDetailActivity extends AppCompatActivity implements LoaderMa
                     sDefenseValue.setText(String.valueOf(favPokemons.get(i).getStat5()));
                     speedValue.setText(String.valueOf(favPokemons.get(i).getStat6()));
 
-                    hpValuePb.setProgress((favPokemons.get(i).getStat1()*100)/250);
-                    attackValuePb.setProgress((favPokemons.get(i).getStat2()*100)/250);
-                    defenseValuePb.setProgress((favPokemons.get(i).getStat3()*100)/250);
-                    sAttackValuePb.setProgress((favPokemons.get(i).getStat4()*100)/250);
-                    sDefenseValuePb.setProgress((favPokemons.get(i).getStat5()*100)/250);
-                    speedValuePb.setProgress((favPokemons.get(i).getStat6()*100)/250);
+                    hpValuePb.setProgress((favPokemons.get(i).getStat1() * 100) / 250);
+                    attackValuePb.setProgress((favPokemons.get(i).getStat2() * 100) / 250);
+                    defenseValuePb.setProgress((favPokemons.get(i).getStat3() * 100) / 250);
+                    sAttackValuePb.setProgress((favPokemons.get(i).getStat4() * 100) / 250);
+                    sDefenseValuePb.setProgress((favPokemons.get(i).getStat5() * 100) / 250);
+                    speedValuePb.setProgress((favPokemons.get(i).getStat6() * 100) / 250);
                     headHeldItems.setVisibility(View.GONE);
                     pokeList.setVisibility(View.GONE);
                     break;
@@ -178,10 +177,10 @@ public class PokemonDetailActivity extends AppCompatActivity implements LoaderMa
                 startActivity(Intent.createChooser(sharePokemon, "Share via"));
                 return true;
             }
-            case R.id.addFav:{
+            case R.id.addFav: {
                 FavPokemon favPokemon = new FavPokemon();
-                if(pokeData==null) {
-                    if(!pokeid.getText().toString().equals("Id")){
+                if (pokeData == null) {
+                    if (!pokeid.getText().toString().equals("Id")) {
                         favItem.setIcon(R.drawable.ic_favorite_border_white_24dp);
                         favItem.setTitle("Add to Favorites");
                         favPokemon.setName(pokename.getText().toString().toLowerCase());
@@ -192,9 +191,9 @@ public class PokemonDetailActivity extends AppCompatActivity implements LoaderMa
                     Toast.makeText(this, "Could not add to Favorites\nTry again later.", Toast.LENGTH_SHORT).show();
                     return true;
                 }
-                if (pokeData!=null) {
+                if (pokeData != null) {
 
-                    if (favItem.getTitle()=="Add to Favorites") {
+                    if (favItem.getTitle() == "Add to Favorites") {
                         favPokemon.setName(pokeData.getName());
                         favPokemon.setId(pokeData.getId());
                         favPokemon.setDetail(pokeData.getDetail());
@@ -212,8 +211,7 @@ public class PokemonDetailActivity extends AppCompatActivity implements LoaderMa
                         Toast.makeText(this, "Added to Favorites", Toast.LENGTH_SHORT).show();
                         favItem.setIcon(R.drawable.ic_favorite_white_24dp);
                         favItem.setTitle("Remove from Favourites");
-                    }
-                    else{
+                    } else {
                         favItem.setIcon(R.drawable.ic_favorite_border_white_24dp);
                         favItem.setTitle("Add to Favorites");
                         favPokemon.setName(pokeData.getName());
@@ -238,7 +236,7 @@ public class PokemonDetailActivity extends AppCompatActivity implements LoaderMa
 
     @Override
     public void onLoadFinished(@NonNull Loader<PokemonDetails> loader, PokemonDetails data) {
-        if (data!=null) {
+        if (data != null) {
             pokeData = data;
             loadingIndicator.setVisibility(View.GONE);
             pokename.setText(data.getName().toUpperCase());
@@ -252,7 +250,7 @@ public class PokemonDetailActivity extends AppCompatActivity implements LoaderMa
                     .asDrawable()
                     .load(data.getImageUrl())
                     .into(pokeimg);
-            if (data.getEvolution()!=null) {
+            if (data.getEvolution() != null) {
                 pokemonsEvolution.clear();
                 pokemonsEvolution.addAll(data.getEvolution());
             }
@@ -268,12 +266,12 @@ public class PokemonDetailActivity extends AppCompatActivity implements LoaderMa
             sDefenseValue.setText(String.valueOf(data.getStats().get(4)));
             speedValue.setText(String.valueOf(data.getStats().get(5)));
 
-            hpValuePb.setProgress((data.getStats().get(0)*100)/250);
-            attackValuePb.setProgress((data.getStats().get(1)*100)/250);
-            defenseValuePb.setProgress((data.getStats().get(2)*100)/250);
-            sAttackValuePb.setProgress((data.getStats().get(3)*100)/250);
-            sDefenseValuePb.setProgress((data.getStats().get(4)*100)/250);
-            speedValuePb.setProgress((data.getStats().get(5)*100)/250);
+            hpValuePb.setProgress((data.getStats().get(0) * 100) / 250);
+            attackValuePb.setProgress((data.getStats().get(1) * 100) / 250);
+            defenseValuePb.setProgress((data.getStats().get(2) * 100) / 250);
+            sAttackValuePb.setProgress((data.getStats().get(3) * 100) / 250);
+            sDefenseValuePb.setProgress((data.getStats().get(4) * 100) / 250);
+            speedValuePb.setProgress((data.getStats().get(5) * 100) / 250);
 
             heldItems.clear();
             heldItems.addAll(data.getHeldItems());
@@ -281,21 +279,35 @@ public class PokemonDetailActivity extends AppCompatActivity implements LoaderMa
             heldItemsList.setAdapter(itemAdapter);
             linearLayoutManager = new LinearLayoutManager(this);
             heldItemsList.setLayoutManager(linearLayoutManager);
-            if(heldItems.size()==0){
+            if (heldItems.size() == 0) {
                 headHeldItems.setVisibility(View.GONE);
-            }
-            else {
+            } else {
                 headHeldItems.setVisibility(View.VISIBLE);
             }
             favItem.setTitle("Add to Favorites");
-            for(int i=0; i<favPokemons.size();i++){
-                if(favPokemons.get(i).getId()==data.getId()){
+            for (int i = 0; i < favPokemons.size(); i++) {
+                if (favPokemons.get(i).getName().equals(data.getName())) {
                     favItem.setIcon(R.drawable.ic_favorite_white_24dp);
                     favItem.setTitle("Remove from Favourites");
+                    if (favPokemons.get(i).getType() == null) {
+                        favPokemons.get(i).setType(data.getType());
+                        favPokemons.get(i).setWeight(data.getWeight());
+                        favPokemons.get(i).setHeight(data.getHeight());
+                        favPokemons.get(i).setDetail(data.getDetail());
+                        favPokemons.get(i).setId(data.getId());
+                        favPokemons.get(i).setStat1(data.getStats().get(0));
+                        favPokemons.get(i).setStat2(data.getStats().get(1));
+                        favPokemons.get(i).setStat3(data.getStats().get(2));
+                        favPokemons.get(i).setStat4(data.getStats().get(3));
+                        favPokemons.get(i).setStat5(data.getStats().get(4));
+                        favPokemons.get(i).setStat6(data.getStats().get(5));
+                        MainActivity.pokedexDatabase.pokeDao().deleteFavPokemon(favPokemons.get(i));
+                        MainActivity.pokedexDatabase.pokeDao().addPokemonDetail(favPokemons.get(i));
+                    }
                     break;
                 }
             }
-        }else {
+        } else {
             pokename.setText("ERROR !");
 
         }
@@ -304,5 +316,11 @@ public class PokemonDetailActivity extends AppCompatActivity implements LoaderMa
     @Override
     public void onLoaderReset(@NonNull Loader<PokemonDetails> loader) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MainActivity.noOfPDActivity--;
     }
 }

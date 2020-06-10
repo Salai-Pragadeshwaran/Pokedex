@@ -19,14 +19,8 @@ import java.util.ArrayList;
 
 public class PokemonDetailsLoader extends AsyncTaskLoader<PokemonDetails> {
 
-    /**
-     * Tag for log messages
-     */
-    private static final String LOG_TAG = PokemonDetailsLoader.class.getName();
 
-    /**
-     * Query URL
-     */
+    private static final String LOG_TAG = PokemonDetailsLoader.class.getName();
     private String mUrl;
 
     public PokemonDetailsLoader(@NonNull Context context, String url) {
@@ -63,24 +57,24 @@ public class PokemonDetailsLoader extends AsyncTaskLoader<PokemonDetails> {
             int id = Integer.valueOf(pokemonData.getString("id"));
             ArrayList<Integer> stats = new ArrayList<>();
             JSONArray statsArray = pokemonData.getJSONArray("stats");
-            for(int i = 0; i<statsArray.length(); i++){
+            for (int i = 0; i < statsArray.length(); i++) {
                 int value = statsArray.getJSONObject(i).getInt("base_stat");
                 stats.add(value);
             }
             ArrayList<Item> heldItems = new ArrayList<>();
             JSONArray held_items = pokemonData.getJSONArray("held_items");
-            for(int i = 0; i<held_items.length(); i++){
+            for (int i = 0; i < held_items.length(); i++) {
                 JSONObject item = held_items.getJSONObject(i).getJSONObject("item");
                 String item_name = item.getString("name");
                 heldItems.add(new Item(item_name,
                         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/" + item_name + ".png"));
             }
             String type = null;
-            for (int i =0; i<pokemonData.getJSONArray("types").length(); i++) {
-                if(type == null){
+            for (int i = 0; i < pokemonData.getJSONArray("types").length(); i++) {
+                if (type == null) {
                     type = pokemonData.getJSONArray("types").getJSONObject(i)
                             .getJSONObject("type").getString("name");
-                }else {
+                } else {
                     type = type + ", " + pokemonData.getJSONArray("types").getJSONObject(i)
                             .getJSONObject("type").getString("name");
                 }
@@ -89,7 +83,7 @@ public class PokemonDetailsLoader extends AsyncTaskLoader<PokemonDetails> {
             // build up a list of Pokemon objects with the corresponding data.
             String pokeSpecies = QueryList.fetchData("https://pokeapi.co/api/v2/pokemon-species/" + id);
             ArrayList<Pokemon> evolution = null;
-            if (pokeSpecies!="") {
+            if (pokeSpecies != "") {
                 pokemonData = new JSONObject(pokeSpecies);
                 String evolutionResponse = QueryList.fetchData(pokemonData.getJSONObject("evolution_chain").getString("url"));
                 pokemonData = new JSONObject(evolutionResponse);
@@ -99,7 +93,7 @@ public class PokemonDetailsLoader extends AsyncTaskLoader<PokemonDetails> {
                 evolution = new ArrayList<>();
                 String epokeName = evolutionData.getJSONObject("species").getString("name");
                 id2 = evolutionData.getJSONObject("species").getString("url");
-                id2 = id2.substring("https://pokeapi.co/api/v2/pokemon-species/".length(), id2.length() -1);
+                id2 = id2.substring("https://pokeapi.co/api/v2/pokemon-species/".length(), id2.length() - 1);
                 evolution.add(new Pokemon(epokeName, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id2 + ".png"));
 
                 while (evolutionData.has("evolves_to")) {
@@ -107,7 +101,7 @@ public class PokemonDetailsLoader extends AsyncTaskLoader<PokemonDetails> {
                         evolutionData = evolutionData.getJSONArray("evolves_to").getJSONObject(0);
                         epokeName = evolutionData.getJSONObject("species").getString("name");
                         id2 = evolutionData.getJSONObject("species").getString("url");
-                        id2 = id2.substring("https://pokeapi.co/api/v2/pokemon-species/".length(), id2.length() -1);
+                        id2 = id2.substring("https://pokeapi.co/api/v2/pokemon-species/".length(), id2.length() - 1);
                         evolution.add(new Pokemon(epokeName, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id2 + ".png"));
                     } else break;
                 }

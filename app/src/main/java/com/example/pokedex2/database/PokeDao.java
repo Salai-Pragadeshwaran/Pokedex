@@ -11,8 +11,10 @@ import java.util.List;
 public interface PokeDao {
     @Insert
     public void addPokemonDetail(FavPokemon favPokemon);
+
     @Query("select * from FavPokemon")
     public List<FavPokemon> getFavPokemon();
+
     @Delete
     public void deleteFavPokemon(FavPokemon favPokemon);
 }

@@ -21,7 +21,7 @@ import com.example.pokedex2.ui.main.Pokemon;
 
 import java.util.ArrayList;
 
-public class PokemonEvolutionAdapter extends RecyclerView.Adapter<PokemonEvolutionAdapter.ViewHolder>{
+public class PokemonEvolutionAdapter extends RecyclerView.Adapter<PokemonEvolutionAdapter.ViewHolder> {
 
     private ArrayList<Pokemon> pokemons = new ArrayList<>();
     private Context mcontext;
@@ -60,9 +60,9 @@ public class PokemonEvolutionAdapter extends RecyclerView.Adapter<PokemonEvoluti
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mcontext, holder.pokemonImage, "pokeimg_transition");
                 intent.putExtra("NAME", pokemons.get(position).getName());
                 mcontext.startActivity(intent, options.toBundle());
-
-                //((Activity) mcontext).finish();
-
+                if (MainActivity.noOfPDActivity > 2) {
+                    ((Activity) mcontext).finish();
+                }
             }
         });
     }

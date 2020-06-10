@@ -14,7 +14,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -57,27 +56,18 @@ public class TypesFragment extends Fragment implements LoaderManager.LoaderCallb
         locationList.setLayoutManager(linearLayoutManager);
 
 
-        // Get a reference to the ConnectivityManager to check state of network connectivity
         ConnectivityManager connMgr = (ConnectivityManager)
                 this.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        // Get details on the currently active default data network
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
         loaderManager = getLoaderManager();
         if (networkInfo != null && networkInfo.isConnected()) {
-            // Get a reference to the LoaderManager, in order to interact with loaders.
 
-            // Initialize the loader. Pass in the int ID constant defined above and pass in null for
-            // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
-            // because this activity implements the LoaderCallbacks interface).
             loaderManager.initLoader(0, null, this);
         } else {
-            // Otherwise, display error
-            // First, hide loading indicator so error message will be visible
-            loadingIndicator.setVisibility(View.GONE);
 
-            // Update empty state with no connection error message
+            loadingIndicator.setVisibility(View.GONE);
             mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
 
